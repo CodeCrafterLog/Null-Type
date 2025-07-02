@@ -1,52 +1,30 @@
 # Introduction
 
-## What is Vibend
-Vibend comes from bend and vivid. It means to bend the console to make it vivid. <br>
-It is a c++ library inspired by ncurses.
+## What is Null Type
+Null Type is a typing lesson application that runs on console without any UI/GUI.<br>
+It uses <span style="color: lime;"><strong>Vibend</strong></span> (A DLL made by <strong>Code Crafter Log</strong>) instead of ncurses.
 
-## Vibend vs Ncurses
-Vibend has the base functions as ncurses but there are vivids such as `Text Box`es and `Progress Bar`s and etc. We plan to add more vivid objects.
+## Game Modes
+### Example Text
+Write example texts with difficulties from `Piece of cake`, `Tricky` up to `BEAST`.<br>
+Where each of them have its own length and words.
 
-## Build or Install
-You can build it your self or use our default builds for x86 windows Debug and Release. Vibend currently is not supported by vcpkg.
+### AI Text
+Write an AI generated text based on your topic with again three difficulties of
+`Piece of cake`, `Tricky` up to `BEAST`. <br>
+Each difficulty has its own word level, and text length.<br>
+Made possible by `meta-llama` free edition:
+`meta-llama/llama-4-maverick:free`
 
-## How to Use
-Every class and function in vibend splits into 2 groups:
+### Words
+Practice typing with perfect accuracy.
+Type some example words based on difficulty that you choose.
+Get <span style="color: orange;"><strong>Accuracy Streaks</strong></span>
+ and try to hit your high-score.
 
-### Benders
-This group is mostly filled with functions.
-These do the basics of this library. They are very similar to ncurses functions. They use ANSI Escape codes with functions such as `teleport(y, x)`, `printf(...)`, `Vibend::setforeground(color)` and etc.
-
-### Vivids
-This group is mostly filled with classes such as `Panel`,`TextBox`, `ProgressBar`, `ItemSelect` and etc.
-
-We plan to add some example projects for vibend. Here is an example of how you can use it:
-``` cpp
-#include <vibend.h>
-
-int main()
-{
-	using namespace Vibend::Literals;
-	Vibend::init();
-	Vibend::clear();
-
-	Vibend::ProgressBar progressbar(
-		Vibend::Box(25_vw, 50_vh - 1, 50_vw, 1),
-		219, ' ', ' ',
-		[]() {Vibend::setforeground(Vibend::Color::GREEN);},
-		[]() {Vibend::resetforeground();}
-	);
-
-	Vibend::Panel(progressbar.box.outer()).drawborder();
-
-	while (progressbar.progress < 1)
-	{
-		progressbar.progress += .01f;
-		progressbar.draw();
-		Sleep(10);
-	}
-
-	Vibend::getch();
-	return 0;
-}
-```
+# Build & Run
+## Manual Build
+This project is designed by & for `Visual Studio` the codes are designed for `x86` operators so you can build them for any architecture.<br>
+* This is what we recommend
+## Use Releases
+If you only want to try the project and you do not want to go deep into building it, use the release for Windows x86.
