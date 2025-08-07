@@ -361,6 +361,7 @@ std::chrono::duration<double> takeWords(std::vector<std::string>& words)
     uint16_t streak = 0;
     uint16_t bestStreak = 0;
     auto now = high_resolution_clock::now();
+    srand((unsigned int)(now- high_resolution_clock::time_point()).count());
 
     while (currentIndex >= currentWord.size() || (input = waitForInput(currentWord[currentIndex], now, false)) != EXIT) // Exit if user asks
     {
