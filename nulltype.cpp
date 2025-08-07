@@ -420,7 +420,7 @@ int main()
             break;
         }
 
-    } while (options.current != INDEX_EXIT); // Exit if you enter last options
+    } while (options.current != INDEX_EXIT);
 
     Vibend::setcursor(true);
 

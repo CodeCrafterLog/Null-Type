@@ -3,3 +3,4 @@
 *.obj
 vibend.vcxproj.user
 /x64/
+/nulltype.vcxproj.user
