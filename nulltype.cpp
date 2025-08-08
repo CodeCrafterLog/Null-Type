@@ -375,9 +375,14 @@ int main()
         difficulty.hover(0);
         difficulty.current = 0;
 
+        difficulty.refresh(false);
+
         // Get the difficulty
         if (options.current != INDEX_CREDITS_TEXT)
-            while (difficulty.refresh(false) != Vibend::ItemSelect::SELECT);
+            while (difficulty.refresh(false) != Vibend::ItemSelect::SELECT)
+                if (difficulty.pressedch() == '\x1b') break;
+
+        if (difficulty.pressedch() == '\x1b') continue;
 
         Vibend::resetstyle();
         Vibend::clear();
