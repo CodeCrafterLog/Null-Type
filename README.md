@@ -4,6 +4,8 @@
 Null Type is a typing lesson application that runs on console without any UI/GUI.<br>
 It uses <span style="color: lime;"><strong>Vibend</strong></span> (A DLL made by <strong>Code Crafter Log</strong>) instead of ncurses.
 
+![alt text](nulltype-screenshot.png)
+
 ## Game Modes
 ### Example Text
 Write example texts with difficulties from `Piece of cake`, `Tricky` up to `BEAST`.<br>
