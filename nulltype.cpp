@@ -153,6 +153,7 @@ std::string extractText(const std::string& jsonResponse) {
     }
 }
 
+// Inputs a single line of code
 std::string inputLine() {
     using namespace Vibend::Literals;
 
@@ -161,6 +162,9 @@ std::string inputLine() {
     char ch;
     while ((ch = Vibend::getch()) != 13)
     {
+        if (ch == '\x1b') // Escape
+            return "";
+
         if (ch != '\b') {
             Vibend::print(ch);
             input += ch;
@@ -391,6 +395,8 @@ int main()
 
             Vibend::teleport(10_vh +1, 25_vw);
             auto input = inputLine();
+
+            if (input.empty()) break;
 
             Vibend::teleport(10_vh +2, 25_vw);
             Vibend::print("Your text is being generated please wait...");
