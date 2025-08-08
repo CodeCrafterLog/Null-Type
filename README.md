@@ -21,8 +21,11 @@ Made possible by `meta-llama` free edition:
 ### Words
 Practice typing with perfect accuracy.
 Type some example words based on difficulty that you choose.
-Get <span style="color: orange;"><strong>Accuracy Streaks</strong></span>
- and try to hit your high-score.
+Get <span style="color: orange;"><strong>Accuracy Streaks</strong></span> and try to hit your high-score.
+
+### Credits
+You can practice by typing a text by the developers
+of the app.
 
 # Build & Run
 ## Manual Build
