@@ -172,11 +172,13 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="api.cpp" />
     <ClCompile Include="nulltype.cpp" />
     <ClCompile Include="sounds.cpp" />
     <ClCompile Include="typing.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="api.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sounds.h" />
     <ClInclude Include="typing.h" />
