@@ -40,6 +40,8 @@ std::string sendRequest(const std::string& prompt)
     struct curl_slist* headers = nullptr;
 
     // Set headers
+    // This API key is only used for this app.
+    // It has no personal usage
     headers = curl_slist_append(headers, "Authorization: Bearer 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");
     headers = curl_slist_append(headers, "Content-Type: application/json");
     if (!headers) {
