@@ -115,10 +115,7 @@ int main()
     Vibend::setforeground(Vibend::Color::WHITE);
     for (const char* cur = MainMenu::TITLE; *cur != '\0'; cur++)
     {
-        // Skip spaces
-        if (*cur != ' ')
-            Vibend::getch();
-
+        Sleep(50);
         Vibend::print(*cur);
     }
 #endif // !_DEBUG
