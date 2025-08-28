@@ -108,7 +108,7 @@ int main()
     using namespace Vibend::Literals;
 
 #ifndef _DEBUG
-    Vibend::setforeground(64, 64, 64);
+    Vibend::setforeground(75, 75, 75);
     printTitle();
     Vibend::teleport(10_vh, 50_vw - MainMenu::TITLE_CENTER);
 
