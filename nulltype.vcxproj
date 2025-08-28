@@ -179,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="api.h" />
+    <ClInclude Include="constants.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sounds.h" />
     <ClInclude Include="typing.h" />

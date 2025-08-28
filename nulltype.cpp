@@ -2,9 +2,11 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+
 #include "typing.h"
 #include "resource.h"
 #include "api.h"
+#include "constants.hpp"
 
 std::vector<std::string> wordslvls[3];
 
@@ -85,18 +87,11 @@ std::string inputLine() {
     return input;
 }
 
-#ifdef _DEBUG
-constexpr const char* TITLE = "- Null Type Debug -";
-constexpr uint16_t TITLE_CENTER = (20 - 1) / 2;
-#else
-constexpr const char* TITLE = "- Null Type -";
-constexpr uint16_t TITLE_CENTER = (14 - 1) / 2;
-#endif // _DEBUG
 void printTitle()
 {
     using namespace Vibend::Literals;
-    Vibend::teleport(10_vh, 50_vw - TITLE_CENTER);
-    Vibend::print(TITLE);
+    Vibend::teleport(10_vh, 50_vw - MainMenu::TITLE_CENTER);
+    Vibend::print(MainMenu::TITLE);
 }
 
 int main()
@@ -115,10 +110,10 @@ int main()
 #ifndef _DEBUG
     Vibend::setforeground(64, 64, 64);
     printTitle();
-    Vibend::teleport(10_vh, 50_vw - TITLE_CENTER);
+    Vibend::teleport(10_vh, 50_vw - MainMenu::TITLE_CENTER);
 
     Vibend::setforeground(Vibend::Color::WHITE);
-    for (const char* cur = TITLE; *cur != '\0'; cur++)
+    for (const char* cur = MainMenu::TITLE; *cur != '\0'; cur++)
     {
         // Skip spaces
         if (*cur != ' ')
@@ -143,80 +138,6 @@ int main()
     items[INDEX_EXIT]           = "Exit";
     #pragma endregion
 
-    std::vector<const char*> difficulties = { "Piece of cake", "Tricky", "BEAST" };
-    constexpr const char* DIFFICULTY_SUFFIX[3] = {
-        ". About 100 words with only lowercase letters and no symbols just simple words",
-        ". About 300 words",
-        ". About 600 words and some hard, long and advanced words and also symbols"
-    };
-
-    constexpr const char* EXAMPLE_TEXTS[3] = {
-        // Difficulty 0
-        "the sun was warm and bright in the clear blue sky "
-        "as the gentle wind moved across the green field of flowers "
-        "the birds sang sweet songs in the morning air "
-        "while the trees swayed softly in the breeze "
-        "the river flowed calmly past the tall hills "
-        "and the grass danced under the golden light of the afternoon "
-        "the world felt peaceful and still "
-        "as nature embraced the beauty of the day "
-        "the animals played in the forest "
-        "and the butterflies drifted above the meadows "
-        "it was a perfect moment of harmony and joy in the soft embrace of the earth",
-
-        // Difficulty 1
-        "The golden Sun cast shimmering reflections upon the restless waves, "
-        "dancing like flames on the water's surface. A cool breeze whispered "
-        "through the towering trees, stirring the emerald leaves into a soft "
-        "rustling symphony. Birds soared high, tracing elegant arcs against "
-        "the endless sky, their songs mingling with the distant laughter of "
-        "children playing by the shore. Time seemed to slow as the rhythmic "
-        "ebb and flow of the tide carried thoughts far beyond the horizon.\n"
-        "In the heart of the forest, an ancient oak stood resolute, its gnarle d"
-        "branches reaching for the heavens like a silent guardian of secrets untold. "
-        "Beneath its watchful gaze, a small stream meandered through moss-covered "
-        "stones, its melody soothing the weary traveler who paused to drink in "
-        "the tranquility. A lone deer stepped cautiously from the shadows, its "
-        "gaze locked upon the fleeting light filtering through the canopy, painting "
-        "the earth in soft hues of amber and gold.\n"
-        "As twilight descended, the sky ignited in a spectacle of vibrant colors�"
-        "crimson, violet, and fiery orange merging in breathtaking harmony. Stars "
-        "emerged, timid at first, before scattering across the heavens in a brilliant "
-        "display of cosmic wonder. The world held its breath, caught between the "
-        "fading warmth of day and the quiet embrace of the night. And in that moment, "
-        "as the last glimmer of sunlight surrendered to the abyss, all was still, "
-        "yet infinitely alive.",
-
-        // Difficulty 2
-        "The resplendent Sun, a celestial beacon of incandescent brilliance, "
-        "cast its effulgent radiance upon the undulating aqueous expanse, "
-        "where capricious waves ebbed and surged in a rhythmic, perpetual dance. "
-        "Zephyrs meandered through the sylvan canopy, coaxing verdant foliage "
-        "into an elaborate ballet of shimmering oscillations, their susurrus "
-        "interwoven with the dulcet warbling of avian denizens soaring in the ether. "
-        "Below, juveniles cavorted along the sun-drenched shore, their mirthful "
-        "laughter an ephemeral symphony harmonizing with the elemental cadence "
-        "of the tide. Time, an inexorable yet abstract construct, seemed momentarily "
-        "suspended within this idyllic tableau.\n"
-        "Deep within the heart of the emerald labyrinth, an ancient arboreal sentinel "
-        "stood in august repose, its gnarled extremities extending toward the firmament "
-        "like an erudite scholar imparting wisdom to the cosmos. Beneath its expansive "
-        "umbrage, a serpentine brook traversed a mosaic of moss-cloaked stones, its "
-        "gurgling cascade imbued with a tranquil melody that allayed the weary sojourner�s "
-        "burdens. A solitary cervine figure materialized from the umbrage, its luminous "
-        "gaze fixed upon the ephemeral interplay of photons filtering through the "
-        "verdant ceiling, suffusing the forest floor with an amber-hued resplendence.\n"
-        "As the diurnal spectacle waned, twilight unfurled its sumptuous chromatic tapestry "
-        "across the celestial dome vermilion, amethystine, and aureate hues amalgamating "
-        "into an opulent chiaroscuro of incandescent splendor. The firmament, initially "
-        "tenebrous, awakened with an astral effulgence as constellations emerged from the "
-        "abyss, festooning the nocturnal heavens with celestial cartography. The world, "
-        "enveloped in an ephemeral serenity, oscillated between the lingering warmth of "
-        "day and the somnolent embrace of night. And in that transcendental moment�"
-        "as the last vestiges of solar brilliance capitulated to the cosmic void�"
-        "existence was paradoxically immutable yet vibrantly alive."
-    };
-
     Vibend::ItemSelect options(
         Vibend::Box(),
         &items
@@ -224,13 +145,8 @@ int main()
 
     Vibend::ItemSelect difficulty(
         Vibend::Box(),
-        &difficulties
+        &MainMenu::difficulties
     );
-
-    constexpr const char* AI_PROMPT_PREFIX = 
-        "Generate a simple text based on the following subject "
-        "using only characters available on a standard keyboard, "
-        "avoid emojis, or non-standard characters, only give me the text. Subject: ";
 
     do {
         options.current = 0;
@@ -270,7 +186,7 @@ int main()
         Vibend::clear();
         Vibend::checksize();
 
-        difficulty.box = Vibend::Box(25_vw, 50_vh - (uint16_t)difficulties.size() / 2, 50_vw, (uint16_t)difficulties.size());
+        difficulty.box = Vibend::Box(25_vw, 50_vh - (uint16_t)MainMenu::difficulties.size() / 2, 50_vw, (uint16_t)MainMenu::difficulties.size());
         Vibend::Panel(difficulty.box.outer()).drawborder();
         difficulty.drawall();
         difficulty.hover(0);
@@ -292,12 +208,12 @@ int main()
         switch (options.current)
         {
         case INDEX_EXAMPLE_TEXT:
-            takeTest(EXAMPLE_TEXTS[difficulty.current]);
+            takeTest(Text::EXAMPLE_TEXTS[difficulty.current]);
             break;
 
         case INDEX_AI_TEXT: {
             Vibend::teleport(10_vh, 25_vw);
-            Vibend::print("Enter your subject:");
+            Vibend::print(MainMenu::subjectInputMsg);
 
             Vibend::teleport(10_vh +1, 25_vw);
             auto input = inputLine();
@@ -305,9 +221,9 @@ int main()
             if (input.empty()) break;
 
             Vibend::teleport(10_vh +2, 25_vw);
-            Vibend::print("Your text is being generated please wait...");
+            Vibend::print(MainMenu::textGenerationMsg);
             
-            auto response = sendRequest(AI_PROMPT_PREFIX + input + DIFFICULTY_SUFFIX[difficulty.current]);
+            auto response = sendRequest(AI::AI_PROMPT_PREFIX + input + AI::DIFFICULTY_SUFFIX[difficulty.current]);
             auto text = extractText(response);
 
             Vibend::clear();
@@ -320,12 +236,7 @@ int main()
             break;
         
         case INDEX_CREDITS_TEXT:
-            takeTest(
-                "NullType, an application about typing and console. "
-                "Inspired by typing.com and curses lib. Using vibend! "
-                "Example texts are generated by AI! But are used in offline mode.\n"
-                "Developed by Sina Kasesaz"
-            );
+            takeTest(Text::CREDITS);
             break;
         
         default:
