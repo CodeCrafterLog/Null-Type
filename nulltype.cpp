@@ -107,6 +107,13 @@ int main()
 
     using namespace Vibend::Literals;
 
+    MainMenu::options.resize(MainMenu::Options::COUNT);
+    MainMenu::options[MainMenu::Options::EXAMPLE_TEXT] = "Example text";
+    MainMenu::options[MainMenu::Options::AI_TEXT] = "Type AI text";
+    MainMenu::options[MainMenu::Options::WORDS] = "Words";
+    MainMenu::options[MainMenu::Options::CREDITS_TEXT] = "Credits";
+    MainMenu::options[MainMenu::Options::EXIT] = "Exit";
+
 #ifndef _DEBUG
     Vibend::setforeground(75, 75, 75);
     printTitle();
@@ -119,25 +126,9 @@ int main()
         Vibend::print(*cur);
     }
 #endif // !_DEBUG
-
-    #pragma region Items
-    constexpr uint8_t INDEX_EXAMPLE_TEXT = 0;
-    constexpr uint8_t INDEX_AI_TEXT      = 1;
-    constexpr uint8_t INDEX_WORDS        = 2;
-    constexpr uint8_t INDEX_CREDITS_TEXT = 3;
-    constexpr uint8_t INDEX_EXIT         = 4;
-
-    std::vector<const char*> options(5);
-    options[INDEX_EXAMPLE_TEXT]   = "Example text";
-    options[INDEX_AI_TEXT]        = "Type AI text";
-    options[INDEX_WORDS]          = "Words";
-    options[INDEX_CREDITS_TEXT]   = "Credits";
-    options[INDEX_EXIT]           = "Exit";
-    #pragma endregion
-
     Vibend::ItemSelect optionsUI(
         Vibend::Box(),
-        &options
+        &MainMenu::options
     );
 
     Vibend::ItemSelect difficultiesUI(
@@ -168,7 +159,7 @@ int main()
 
             printTitle();
 
-            optionsUI.box = Vibend::Box(25_vw, 50_vh - (uint16_t)options.size() / 2, 50_vw, (uint16_t)options.size());
+            optionsUI.box = Vibend::Box(25_vw, 50_vh - (uint16_t)MainMenu::Options::COUNT / 2, 50_vw, (uint16_t)MainMenu::Options::COUNT);
             optionsUI.drawall();
             optionsUI.hover(optionsUI.current);
             Vibend::Panel(optionsUI.box.outer()).drawborder();
@@ -176,7 +167,7 @@ int main()
 
         // Exit if the current options is last one (Exit)
         // Making the while condition useless
-        if (optionsUI.current == INDEX_EXIT)
+        if (optionsUI.current == MainMenu::Options::EXIT)
             break;
 
         Vibend::resetstyle();
@@ -192,7 +183,7 @@ int main()
         difficultiesUI.refresh(false);
 
         // Get the difficulty
-        if (optionsUI.current != INDEX_CREDITS_TEXT)
+        if (optionsUI.current != MainMenu::Options::CREDITS_TEXT)
             while (difficultiesUI.refresh(false) != Vibend::ItemSelect::SELECT)
                 if (difficultiesUI.pressedch() == '\x1b') break;
 
@@ -204,11 +195,11 @@ int main()
 
         switch (optionsUI.current)
         {
-        case INDEX_EXAMPLE_TEXT:
+        case MainMenu::Options::EXAMPLE_TEXT:
             takeTest(Text::EXAMPLE_TEXTS[difficultiesUI.current]);
             break;
 
-        case INDEX_AI_TEXT: {
+        case MainMenu::Options::AI_TEXT: {
             Vibend::teleport(10_vh, 25_vw);
             Vibend::print(MainMenu::SUBJECT_INPUT_MSG);
 
@@ -228,11 +219,11 @@ int main()
             break;
         }
 
-        case INDEX_WORDS:
+        case MainMenu::Options::WORDS:
             takeWords(wordslvls[difficultiesUI.current]);
             break;
         
-        case INDEX_CREDITS_TEXT:
+        case MainMenu::Options::CREDITS_TEXT:
             takeTest(Text::CREDITS);
             break;
         
@@ -240,7 +231,7 @@ int main()
             break;
         }
 
-    } while (optionsUI.current != INDEX_EXIT);
+    } while (optionsUI.current != MainMenu::Options::EXIT);
 
     Vibend::setcursor(true);
 
