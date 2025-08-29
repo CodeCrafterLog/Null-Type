@@ -108,10 +108,10 @@ int main()
     using namespace Vibend::Literals;
 
     MainMenu::options.resize(MainMenu::Options::COUNT);
-    MainMenu::options[MainMenu::Options::EXAMPLE_TEXT] = "Example text";
-    MainMenu::options[MainMenu::Options::AI_TEXT] = "Type AI text";
+    MainMenu::options[MainMenu::Options::EXAMPLE] = "Example text";
+    MainMenu::options[MainMenu::Options::AI] = "Type AI text";
     MainMenu::options[MainMenu::Options::WORDS] = "Words";
-    MainMenu::options[MainMenu::Options::CREDITS_TEXT] = "Credits";
+    MainMenu::options[MainMenu::Options::CREDITS] = "Credits";
     MainMenu::options[MainMenu::Options::EXIT] = "Exit";
 
 #ifndef _DEBUG
@@ -183,7 +183,7 @@ int main()
         difficultiesUI.refresh(false);
 
         // Get the difficulty
-        if (optionsUI.current != MainMenu::Options::CREDITS_TEXT)
+        if (optionsUI.current != MainMenu::Options::CREDITS)
             while (difficultiesUI.refresh(false) != Vibend::ItemSelect::SELECT)
                 if (difficultiesUI.pressedch() == '\x1b') break;
 
@@ -195,11 +195,11 @@ int main()
 
         switch (optionsUI.current)
         {
-        case MainMenu::Options::EXAMPLE_TEXT:
+        case MainMenu::Options::EXAMPLE:
             takeTest(Text::EXAMPLE_TEXTS[difficultiesUI.current]);
             break;
 
-        case MainMenu::Options::AI_TEXT: {
+        case MainMenu::Options::AI: {
             Vibend::teleport(10_vh, 25_vw);
             Vibend::print(MainMenu::SUBJECT_INPUT_MSG);
 
@@ -223,7 +223,7 @@ int main()
             takeWords(wordslvls[difficultiesUI.current]);
             break;
         
-        case MainMenu::Options::CREDITS_TEXT:
+        case MainMenu::Options::CREDITS:
             takeTest(Text::CREDITS);
             break;
         

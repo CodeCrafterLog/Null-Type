@@ -6,10 +6,10 @@ namespace MainMenu
 {
     enum Options
     {
-        EXAMPLE_TEXT,
-        AI_TEXT,
+        EXAMPLE,
+        AI,
         WORDS,
-        CREDITS_TEXT,
+        CREDITS,
         EXIT,
         COUNT
     };
