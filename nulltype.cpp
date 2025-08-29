@@ -56,81 +56,9 @@ namespace Resources
     }
 }
 
-// Inputs a single line of code
-std::string inputLine() {
-    using namespace Vibend::Literals;
-
-    std::string input;
-
-    char ch;
-    while ((ch = Vibend::getch()) != 13)
-    {
-        if (ch == '\x1b') // Escape
-            return "";
-
-        if (ch != '\b') {
-            Vibend::print(ch);
-            input += ch;
-            continue;
-        }
-
-        if (!input.size())
-            continue;
-
-        Vibend::movecols(-1);
-        Vibend::print(' ');
-        Vibend::movecols(-1);
-        input.pop_back();
-        continue;
-    }
-
-    return input;
-}
-
-void printTitle()
-{
-    using namespace Vibend::Literals;
-    Vibend::teleport(10_vh, 50_vw - MainMenu::TITLE_CENTER);
-    Vibend::print(MainMenu::TITLE);
-}
-
-int init()
-{
-    // Load Resources
-    // TODO Debug errors
-    Resources::loadTextResource(IDR_TEXT1, Resources::wordslvls[0]);
-    Resources::loadTextResource(IDR_TEXT2, Resources::wordslvls[1]);
-    Resources::loadTextResource(IDR_TEXT3, Resources::wordslvls[2]);
-
-    // Initialize Vibend
-    Vibend::init();
-    Vibend::setcursor(false);
-
-    // Set options labels
-    MainMenu::options.resize(MainMenu::Options::COUNT);
-    MainMenu::options[MainMenu::Options::EXAMPLE] = "Example text";
-    MainMenu::options[MainMenu::Options::AI] = "Type AI text";
-    MainMenu::options[MainMenu::Options::WORDS] = "Words";
-    MainMenu::options[MainMenu::Options::CREDITS] = "Credits";
-    MainMenu::options[MainMenu::Options::EXIT] = "Exit";
-
-    using namespace Vibend::Literals;
-
-#ifndef _DEBUG
-    Vibend::setforeground(75, 75, 75);
-    printTitle();
-    Vibend::teleport(10_vh, 50_vw - MainMenu::TITLE_CENTER);
-
-    Vibend::setforeground(Vibend::Color::WHITE);
-    for (const char* cur = MainMenu::TITLE; *cur != '\0'; cur++)
-    {
-        Sleep(50);
-        Vibend::print(*cur);
-    }
-#endif // !_DEBUG
-
-    return 0;
-}
+std::string inputLine();
+void printTitle();
+int init();
 
 int main()
 {
@@ -246,6 +174,82 @@ int main()
     } while (optionsUI.current != MainMenu::Options::EXIT);
 
     Vibend::setcursor(true);
+
+    return 0;
+}
+
+// Inputs a single line of code
+std::string inputLine() {
+    using namespace Vibend::Literals;
+
+    std::string input;
+
+    char ch;
+    while ((ch = Vibend::getch()) != 13)
+    {
+        if (ch == '\x1b') // Escape
+            return "";
+
+        if (ch != '\b') {
+            Vibend::print(ch);
+            input += ch;
+            continue;
+        }
+
+        if (!input.size())
+            continue;
+
+        Vibend::movecols(-1);
+        Vibend::print(' ');
+        Vibend::movecols(-1);
+        input.pop_back();
+        continue;
+    }
+
+    return input;
+}
+
+void printTitle()
+{
+    using namespace Vibend::Literals;
+    Vibend::teleport(10_vh, 50_vw - MainMenu::TITLE_CENTER);
+    Vibend::print(MainMenu::TITLE);
+}
+
+int init()
+{
+    // Load Resources
+    // TODO Debug errors
+    Resources::loadTextResource(IDR_TEXT1, Resources::wordslvls[0]);
+    Resources::loadTextResource(IDR_TEXT2, Resources::wordslvls[1]);
+    Resources::loadTextResource(IDR_TEXT3, Resources::wordslvls[2]);
+
+    // Initialize Vibend
+    Vibend::init();
+    Vibend::setcursor(false);
+
+    // Set options labels
+    MainMenu::options.resize(MainMenu::Options::COUNT);
+    MainMenu::options[MainMenu::Options::EXAMPLE] = "Example text";
+    MainMenu::options[MainMenu::Options::AI] = "Type AI text";
+    MainMenu::options[MainMenu::Options::WORDS] = "Words";
+    MainMenu::options[MainMenu::Options::CREDITS] = "Credits";
+    MainMenu::options[MainMenu::Options::EXIT] = "Exit";
+
+    using namespace Vibend::Literals;
+
+#ifndef _DEBUG
+    Vibend::setforeground(75, 75, 75);
+    printTitle();
+    Vibend::teleport(10_vh, 50_vw - MainMenu::TITLE_CENTER);
+
+    Vibend::setforeground(Vibend::Color::WHITE);
+    for (const char* cur = MainMenu::TITLE; *cur != '\0'; cur++)
+    {
+        Sleep(50);
+        Vibend::print(*cur);
+    }
+#endif // !_DEBUG
 
     return 0;
 }
