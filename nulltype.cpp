@@ -210,7 +210,7 @@ int main()
 
         case INDEX_AI_TEXT: {
             Vibend::teleport(10_vh, 25_vw);
-            Vibend::print(MainMenu::subjectInputMsg);
+            Vibend::print(MainMenu::SUBJECT_INPUT_MSG);
 
             Vibend::teleport(10_vh +1, 25_vw);
             auto input = inputLine();
@@ -218,7 +218,7 @@ int main()
             if (input.empty()) break;
 
             Vibend::teleport(10_vh +2, 25_vw);
-            Vibend::print(MainMenu::textGenerationMsg);
+            Vibend::print(MainMenu::TEXT_GENERATION_MSG);
             
             auto response = sendRequest(AI::AI_PROMPT_PREFIX + input + AI::DIFFICULTY_SUFFIX[difficulty.current]);
             auto text = extractText(response);

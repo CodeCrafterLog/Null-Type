@@ -5,8 +5,8 @@
 namespace MainMenu
 {
     std::vector<const char*> difficulties = { "Piece of cake", "Tricky", "BEAST" };
-    const char* textGenerationMsg = "Your text is being generated please wait...";
-    const char* subjectInputMsg = "Enter your subject:";
+    const char* TEXT_GENERATION_MSG = "Your text is being generated please wait...";
+    const char* SUBJECT_INPUT_MSG = "Enter your subject:";
 #ifdef _DEBUG
     constexpr const char* TITLE = "- Null Type Debug -";
     constexpr uint16_t TITLE_CENTER = (20 - 1) / 2;
