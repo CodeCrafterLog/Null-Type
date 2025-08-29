@@ -94,8 +94,9 @@ void printTitle()
     Vibend::print(MainMenu::TITLE);
 }
 
-int main()
+int init()
 {
+    // Load Resources
     // TODO Debug errors
     Resources::loadTextResource(IDR_TEXT1, Resources::wordslvls[0]);
     Resources::loadTextResource(IDR_TEXT2, Resources::wordslvls[1]);
@@ -105,14 +106,15 @@ int main()
     Vibend::init();
     Vibend::setcursor(false);
 
-    using namespace Vibend::Literals;
-
+    // Set options labels
     MainMenu::options.resize(MainMenu::Options::COUNT);
     MainMenu::options[MainMenu::Options::EXAMPLE] = "Example text";
     MainMenu::options[MainMenu::Options::AI] = "Type AI text";
     MainMenu::options[MainMenu::Options::WORDS] = "Words";
     MainMenu::options[MainMenu::Options::CREDITS] = "Credits";
     MainMenu::options[MainMenu::Options::EXIT] = "Exit";
+
+    using namespace Vibend::Literals;
 
 #ifndef _DEBUG
     Vibend::setforeground(75, 75, 75);
@@ -126,6 +128,14 @@ int main()
         Vibend::print(*cur);
     }
 #endif // !_DEBUG
+}
+
+int main()
+{
+    init();
+
+    using namespace Vibend::Literals;
+
     Vibend::ItemSelect optionsUI(
         Vibend::Box(),
         &MainMenu::options
