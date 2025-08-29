@@ -135,23 +135,23 @@ int main()
     items[INDEX_EXIT]           = "Exit";
     #pragma endregion
 
-    Vibend::ItemSelect options(
+    Vibend::ItemSelect optionsUI(
         Vibend::Box(),
         &items
     );
 
-    Vibend::ItemSelect difficulty(
+    Vibend::ItemSelect difficultiesUI(
         Vibend::Box(),
         &MainMenu::difficulties
     );
 
     do {
-        options.current = 0;
+        optionsUI.current = 0;
 
         uint16_t lastwidth = 0;
         uint16_t lastheight = 0;
 
-        while (options.refresh(false) != Vibend::ItemSelect::SELECT) {
+        while (optionsUI.refresh(false) != Vibend::ItemSelect::SELECT) {
             Vibend::checksize();
 
             uint16_t curwidth = Vibend::screenwidth;
@@ -168,44 +168,44 @@ int main()
 
             printTitle();
 
-            options.box = Vibend::Box(25_vw, 50_vh - (uint16_t)items.size() / 2, 50_vw, (uint16_t)items.size());
-            options.drawall();
-            options.hover(options.current);
-            Vibend::Panel(options.box.outer()).drawborder();
+            optionsUI.box = Vibend::Box(25_vw, 50_vh - (uint16_t)items.size() / 2, 50_vw, (uint16_t)items.size());
+            optionsUI.drawall();
+            optionsUI.hover(optionsUI.current);
+            Vibend::Panel(optionsUI.box.outer()).drawborder();
         }
 
         // Exit if the current options is last one (Exit)
         // Making the while condition useless
-        if (options.current == INDEX_EXIT)
+        if (optionsUI.current == INDEX_EXIT)
             break;
 
         Vibend::resetstyle();
         Vibend::clear();
         Vibend::checksize();
 
-        difficulty.box = Vibend::Box(25_vw, 50_vh - (uint16_t)MainMenu::difficulties.size() / 2, 50_vw, (uint16_t)MainMenu::difficulties.size());
-        Vibend::Panel(difficulty.box.outer()).drawborder();
-        difficulty.drawall();
-        difficulty.hover(0);
-        difficulty.current = 0;
+        difficultiesUI.box = Vibend::Box(25_vw, 50_vh - (uint16_t)MainMenu::difficulties.size() / 2, 50_vw, (uint16_t)MainMenu::difficulties.size());
+        Vibend::Panel(difficultiesUI.box.outer()).drawborder();
+        difficultiesUI.drawall();
+        difficultiesUI.hover(0);
+        difficultiesUI.current = 0;
 
-        difficulty.refresh(false);
+        difficultiesUI.refresh(false);
 
         // Get the difficulty
-        if (options.current != INDEX_CREDITS_TEXT)
-            while (difficulty.refresh(false) != Vibend::ItemSelect::SELECT)
-                if (difficulty.pressedch() == '\x1b') break;
+        if (optionsUI.current != INDEX_CREDITS_TEXT)
+            while (difficultiesUI.refresh(false) != Vibend::ItemSelect::SELECT)
+                if (difficultiesUI.pressedch() == '\x1b') break;
 
-        if (difficulty.pressedch() == '\x1b') continue;
+        if (difficultiesUI.pressedch() == '\x1b') continue;
 
         Vibend::resetstyle();
         Vibend::clear();
         Vibend::checksize();
 
-        switch (options.current)
+        switch (optionsUI.current)
         {
         case INDEX_EXAMPLE_TEXT:
-            takeTest(Text::EXAMPLE_TEXTS[difficulty.current]);
+            takeTest(Text::EXAMPLE_TEXTS[difficultiesUI.current]);
             break;
 
         case INDEX_AI_TEXT: {
@@ -220,7 +220,7 @@ int main()
             Vibend::teleport(10_vh +2, 25_vw);
             Vibend::print(MainMenu::TEXT_GENERATION_MSG);
             
-            auto response = sendRequest(AI::AI_PROMPT_PREFIX + input + AI::DIFFICULTY_SUFFIX[difficulty.current]);
+            auto response = sendRequest(AI::AI_PROMPT_PREFIX + input + AI::DIFFICULTY_SUFFIX[difficultiesUI.current]);
             auto text = extractText(response);
 
             Vibend::clear();
@@ -229,7 +229,7 @@ int main()
         }
 
         case INDEX_WORDS:
-            takeWords(wordslvls[difficulty.current]);
+            takeWords(wordslvls[difficultiesUI.current]);
             break;
         
         case INDEX_CREDITS_TEXT:
@@ -240,7 +240,7 @@ int main()
             break;
         }
 
-    } while (options.current != INDEX_EXIT);
+    } while (optionsUI.current != INDEX_EXIT);
 
     Vibend::setcursor(true);
 
