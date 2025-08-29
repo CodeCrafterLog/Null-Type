@@ -8,10 +8,10 @@
 #include "api.h"
 #include "constants.hpp"
 
-std::vector<std::string> wordslvls[3];
-
 namespace Resources
 {
+    std::vector<std::string> wordslvls[3];
+
     constexpr uint8_t OK                    = 0;
     constexpr uint8_t RESOURCE_NOT_FOUND    = 1;
     constexpr uint8_t RESOURCE_LOAD_FAIL    = 2;
@@ -97,9 +97,9 @@ void printTitle()
 int main()
 {
     // TODO Debug errors
-    Resources::loadTextResource(IDR_TEXT1, wordslvls[0]);
-    Resources::loadTextResource(IDR_TEXT2, wordslvls[1]);
-    Resources::loadTextResource(IDR_TEXT3, wordslvls[2]);
+    Resources::loadTextResource(IDR_TEXT1, Resources::wordslvls[0]);
+    Resources::loadTextResource(IDR_TEXT2, Resources::wordslvls[1]);
+    Resources::loadTextResource(IDR_TEXT3, Resources::wordslvls[2]);
 
     // Initialize Vibend
     Vibend::init();
@@ -220,7 +220,7 @@ int main()
         }
 
         case MainMenu::Options::WORDS:
-            takeWords(wordslvls[difficultiesUI.current]);
+            takeWords(Resources::wordslvls[difficultiesUI.current]);
             break;
         
         case MainMenu::Options::CREDITS:
