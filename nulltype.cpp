@@ -128,6 +128,8 @@ int init()
         Vibend::print(*cur);
     }
 #endif // !_DEBUG
+
+    return 0;
 }
 
 int main()
