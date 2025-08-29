@@ -127,17 +127,17 @@ int main()
     constexpr uint8_t INDEX_CREDITS_TEXT = 3;
     constexpr uint8_t INDEX_EXIT         = 4;
 
-    std::vector<const char*> items(5);
-    items[INDEX_EXAMPLE_TEXT]   = "Example text";
-    items[INDEX_AI_TEXT]        = "Type AI text";
-    items[INDEX_WORDS]          = "Words";
-    items[INDEX_CREDITS_TEXT]   = "Credits";
-    items[INDEX_EXIT]           = "Exit";
+    std::vector<const char*> options(5);
+    options[INDEX_EXAMPLE_TEXT]   = "Example text";
+    options[INDEX_AI_TEXT]        = "Type AI text";
+    options[INDEX_WORDS]          = "Words";
+    options[INDEX_CREDITS_TEXT]   = "Credits";
+    options[INDEX_EXIT]           = "Exit";
     #pragma endregion
 
     Vibend::ItemSelect optionsUI(
         Vibend::Box(),
-        &items
+        &options
     );
 
     Vibend::ItemSelect difficultiesUI(
@@ -168,7 +168,7 @@ int main()
 
             printTitle();
 
-            optionsUI.box = Vibend::Box(25_vw, 50_vh - (uint16_t)items.size() / 2, 50_vw, (uint16_t)items.size());
+            optionsUI.box = Vibend::Box(25_vw, 50_vh - (uint16_t)options.size() / 2, 50_vw, (uint16_t)options.size());
             optionsUI.drawall();
             optionsUI.hover(optionsUI.current);
             Vibend::Panel(optionsUI.box.outer()).drawborder();
